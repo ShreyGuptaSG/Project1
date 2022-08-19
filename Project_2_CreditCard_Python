@@ -15,3 +15,54 @@ df = df.rename(columns={'PAY_0': 'PAY_1', 'default payment next month': 'payment
 
 y = df['payment_default'].loc[:12499].values
 X = df[['PAY_1', 'AGE', 'SEX', 'MARRIAGE', 'EDUCATION', 'BILL_AMT1']].loc[:12499].values
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.32, random_state = 3, stratify = y)
+  
+##STEP 2 Machine Learning using scikit-learn
+--- Logistic Regression - Support Vector Machine with Linear Kernel - Support Vector Machine with RBF Kernel- Decision Tree - Random Forest- KNN 
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+lr = LogisticRegression(random_state=5)
+lr.fit(X_train_scaled, y_train)
+
+svm_linear = SVC(kernel='linear', C=5.0, random_state=5)
+svm_linear.fit(X_train_scaled, y_train)
+
+svm_rbf = SVC(kernel='rbf', gamma = 20, C=5.0, random_state=5)
+svm_rbf.fit(X_train_scaled, y_train)
+
+tree = DecisionTreeClassifier(criterion='entropy', max_depth = 5, random_state=5)
+tree.fit(X_train_scaled, y_train)
+
+forest = RandomForestClassifier(criterion='entropy', n_estimators=20, random_state=5)
+forest.fit(X_train_scaled, y_train)
+
+knn = KNeighborsClassifier(n_neighbors=7, p=2, metric='minkowski')
+knn.fit(X_train_scaled, y_train)
+
+lr_accuracy_train=f'lr_accuracy_train = {lr.score(X_train_scaled, y_train):5f}'
+# print(lr_accuracy_train)
+svm_linear_accuracy_train = f'svm_linear_accuracy_train = {svm_linear.score(X_train_scaled, y_train):5f}'
+# print(svm_linear_accuracy_train)
+svm_rbf_accuracy_train = f'svm_rbf_accuracy_train = {svm_rbf.score(X_train_scaled, y_train):5f}'
+# print(svm_rbf_accuracy_train)
+tree_accuracy_train = f'tree_accuracy_train = {tree.score(X_train_scaled, y_train):5f}'
+# print(tree_accuracy_train)
+forest_accuracy_train=f'forest_accuracy_train = {forest.score(X_train_scaled, y_train):5f}'
+# print(forest_accuracy_train)
+knn_accuracy_train=f'knn_accuracy_train = {knn.score(X_train_scaled, y_train):5f}'
+# print(knn_accuracy_train)
+
+print(lr_accuracy_train)
+print(svm_linear_accuracy_train)
+print(svm_rbf_accuracy_train)
+print(tree_accuracy_train)
+print(forest_accuracy_train)
+print(knn_accuracy_train)
