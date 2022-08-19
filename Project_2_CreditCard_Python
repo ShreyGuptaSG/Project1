@@ -1,0 +1,17 @@
+import pandas as pd
+
+##delete Id column and skipped 1 row 
+df = pd.read_excel('https://archive.ics.uci.edu/ml/machine-learning-databases/00350/default%20of%20credit%20card%20clients.xls', skiprows=[0])
+del df['ID']
+
+##Rename the column 'PAY_0' to 'PAY_1' and the column 'default payment next month' to 'payment_default' 
+
+df = df.rename(columns={'PAY_0': 'PAY_1', 'default payment next month': 'payment_default'})
+df = df.rename(columns={'PAY_0': 'PAY_1', 'default payment next month': 'payment_default'})
+
+
+## Create a one-dimensional NumPy array named y by exporting the first 12,500 observations of 'payment_default' column from df
+##Similarly, create a two-dimensional NumPy array named X by exporting the first 12,500 observatations of 'PAY_1', 'PAY_2', 'AGE', 'SEX', 'MARRIAGE', 'EDUCATION' and 'BILL_AMT1' columns. (10 points)
+
+y = df['payment_default'].loc[:12499].values
+X = df[['PAY_1', 'AGE', 'SEX', 'MARRIAGE', 'EDUCATION', 'BILL_AMT1']].loc[:12499].values
